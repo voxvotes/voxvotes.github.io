@@ -19,6 +19,7 @@
             flex-direction: column;
             align-items: center;
             text-align: center;
+            line-height: 1.4em;
         }
 
         @font-face {
@@ -261,7 +262,36 @@
         #faq {
             margin-bottom: 200px;
         }
+
+        #timer {
+            color: #00ffbf;
+        }
     </style>
+    <script>
+        // Countdown Timer
+        const targetDate = new Date("March 2, 2025 00:00:00").getTime();
+
+        function updateTimer() {
+            const now = new Date().getTime();
+            const timeLeft = targetDate - now;
+
+            if (timeLeft <= 0) {
+                document.getElementById('timer').innerText = "Poll is now live!";
+                return;
+            }
+
+            const days = Math.floor(timeLeft / (1000 * 60 * 60 * 24));
+            const hours = Math.floor((timeLeft % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+            const minutes = Math.floor((timeLeft % (1000 * 60 * 60)) / (1000 * 60));
+            const seconds = Math.floor((timeLeft % (1000 * 60)) / 1000);
+
+            document.getElementById('timer').innerText =
+                `Next poll in ${days}d ${hours}h ${minutes}m ${seconds}s`;
+        }
+
+        // Update timer every second
+        setInterval(updateTimer, 1000);
+    </script>
 </head>
 
 <body>
@@ -279,9 +309,9 @@
 
     <div class="content-block" id="intro">
         <h1>It's Time for a Major Democracy Reform</h1>
-        <p>The future of democracy lies in the hands of the people. 𝕍𝕆𝕏𝕍𝕆𝕋𝔼𝕊 empowers
+        <p>The future of democracy lies in the hands of the People. 𝕍𝕆𝕏𝕍𝕆𝕋𝔼𝕊 empowers
             everyone to shape our world through direct referenda. No red tape. No more bureaucracy. It's time to let the
-            people decide.</p>
+            People decide.</p>
         <div class="button-block">
             <a href="#faq"><button>Learn more</button></a>
         </div>
@@ -289,6 +319,7 @@
 
     <div class="content-block" id="polls">
         <h1>Upcoming 𝕍𝕆𝕏𝕍𝕆𝕋𝔼𝕊 Polls</h1>
+        <div id="timer"></div>
         <div class="content-card">
             <h2 class="card-title"><span class="card-label">Trial</span> Should mainland Europe become a US state?</h2>
             <div class="card-meta">
@@ -331,8 +362,10 @@
                 platform 𝕏. This initiative is not affiliated, organised or supported by the local government.
             </p>
             <div class="card-buttons">
-                <button class="vote-button disabled-button" disabled>Vote Now</button>
-                <button class="results-button disabled-button" disabled>Results</button>
+                <button class="vote-button disabled-button tooltip" disabled>Vote Now<span class="tooltiptext">Poll not
+                        open yet</span></button>
+                <button class="results-button disabled-button tooltip" disabled>Results<span class="tooltiptext">No
+                        results available yet</span></button>
             </div>
         </div>
 
@@ -376,8 +409,10 @@
                 independent free-speech platform 𝕏.
             </p>
             <div class="card-buttons">
-                <button class="vote-button disabled-button" disabled>Vote Now</button>
-                <button class="results-button disabled-button" disabled>Results</button>
+                <button class="vote-button disabled-button tooltip" disabled>Vote Now<span class="tooltiptext">Poll not
+                        open yet</span></button>
+                <button class="results-button disabled-button tooltip" disabled>Results<span class="tooltiptext">No
+                        results available yet</span></button>
             </div>
         </div>
 
@@ -421,8 +456,10 @@
                 announced later.
             </p>
             <div class="card-buttons">
-                <button class="vote-button disabled-button" disabled>Vote Now</button>
-                <button class="results-button disabled-button" disabled>Results</button>
+                <button class="vote-button disabled-button tooltip" disabled>Vote Now<span class="tooltiptext">Poll not
+                        open yet</span></button>
+                <button class="results-button disabled-button tooltip" disabled>Results<span class="tooltiptext">No
+                        results available yet</span></button>
             </div>
         </div>
 
@@ -467,8 +504,10 @@
                 announced later.
             </p>
             <div class="card-buttons">
-                <button class="vote-button disabled-button" disabled>Vote Now</button>
-                <button class="results-button disabled-button" disabled>Results</button>
+                <button class="vote-button disabled-button tooltip" disabled>Vote Now<span class="tooltiptext">Poll not
+                        open yet</span></button>
+                <button class="results-button disabled-button tooltip" disabled>Results<span class="tooltiptext">No
+                        results available yet</span></button>
             </div>
         </div>
     </div>
@@ -498,9 +537,12 @@
         <div class="faq-block">
             <h2 class="faq-question">Who is behind this initiative?</h2>
             <p class="faq-answer">
-                We are a diverse group of individuals representing various ages, genders, religious beliefs, and
-                political viewpoints.<br />Our shared mission is to restore public trust in democratic processes.
-                This initiative is privately funded and operates as an independent, non-profit organization.
+                We are a diverse group of individuals spanning various ages, genders, religious beliefs, and political
+                viewpoints.
+                Our shared mission is to restore public trust in democratic processes.<br />
+                This initiative is privately funded and operates as an independent, non-profit organization (OLG).<br />
+                Over the past months, we have worked tirelessly to design secure and transparent systems that bring
+                democracy closer to the People — with a strong focus on integrity, privacy, and maximum participation.
             </p>
         </div>
         <div class="faq-block">
@@ -513,12 +555,12 @@
         <div class="faq-block">
             <h2 class="faq-question">I have an idea or a question, how can I contact you?</h2>
             <p class="faq-answer">
-                Please reach out to <a href="mailto:admin@voxvotes.org">admin@voxvotes.org</a>
+                Please reach out to <a href="mailto:contact@voxvotes.org">contact@voxvotes.org</a>
             </p>
         </div>
     </div>
     <footer>
-        This website is not affiliated with 𝕏 or its brand. Powered by the people.
+        This website is not affiliated with 𝕏 or its brand. Powered by the People.
     </footer>
     <!-- cache id: 0c536cfa30b743f21f0b2594d8fcf50e9bf42a421d20685b5b5d534af894eb3a -->
 </body>
