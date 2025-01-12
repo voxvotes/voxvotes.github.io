@@ -1,0 +1,526 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>𝕍𝕆𝕏𝕍𝕆𝕋𝔼𝕊 - Let the People Decide</title>
+    <meta property="og:title" content="𝕍𝕆𝕏𝕍𝕆𝕋𝔼𝕊 | let the people decide" />
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content="https://voxvotes.org" />
+    <meta property="og:image" content="https://voxvotes.org/share.jpg" />
+    <style>
+        body {
+            margin: 0;
+            font-family: 'Roboto', sans-serif;
+            background: linear-gradient(135deg, #1a1a1a, #121212);
+            color: #ffffff;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            text-align: center;
+        }
+
+        @font-face {
+            font-family: 'Roboto';
+            src:
+                url('./Roboto-Regular.ttf') format('truetype');
+            font-weight: normal;
+            font-style: normal;
+        }
+
+        @font-face {
+            font-family: 'Roboto';
+            src:
+                url('./Roboto-Bold.ttf') format('truetype');
+            font-weight: bold;
+            font-style: normal;
+        }
+
+        header {
+            width: 100%;
+            background-color: #000000;
+            border-bottom: 2px solid #444;
+            position: fixed;
+            top: 0;
+            z-index: 999;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 20px;
+        }
+
+        .brand-name {
+            font-size: 32px;
+            font-weight: 500;
+            letter-spacing: 2px;
+            color: #ffffff;
+            margin-left: 20px;
+        }
+
+        .brand-tagline {
+            font-size: 18px;
+            font-weight: 300;
+            color: #ffffff;
+            margin-left: 10px;
+        }
+
+        nav {
+            margin-right: 20px;
+        }
+
+        nav ul {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+            display: flex;
+        }
+
+        nav ul li {
+            margin: 0 15px;
+        }
+
+        nav ul li a {
+            color: #00ffbf;
+            text-decoration: none;
+            font-weight: 400;
+        }
+
+        a {
+            color: #ffffff;
+            text-decoration: none;
+            font-weight: bold;
+        }
+
+        #intro {
+            margin-top: 120px;
+        }
+
+        #intro button {
+            background-color: transparent;
+            color: #00d9a5;
+            border: 1px solid #00d9a5;
+        }
+
+        .content-block {
+            max-width: 900px;
+            margin: 20px 0;
+        }
+
+        h1 {
+            font-size: 36px;
+            color: #00ffbf;
+            margin-bottom: 20px;
+        }
+
+        .content-card {
+            background: #1c1c1c;
+            padding: 20px;
+            border-radius: 8px;
+            margin: 20px 0;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.5);
+        }
+
+        .card-title {
+            font-size: 28px;
+            color: #ffffff;
+            margin-bottom: 10px;
+        }
+
+        .card-date,
+        .card-audience,
+        .card-status {
+            font-size: 18px;
+            color: #bbbbbb;
+            margin: 5px 0;
+        }
+
+        .content-card:hover {
+            background: #272727;
+            transform: scale(1.02);
+            transition: all 0.3s ease;
+        }
+
+        button {
+            margin-top: 10px;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 4px;
+            font-size: 16px;
+            cursor: pointer;
+        }
+
+        .vote-button,
+        .calendar-button,
+        .results-button {
+            margin-top: 10px;
+            padding: 10px 20px;
+            background-color: #00ffbf;
+            color: #000;
+            border: none;
+            border-radius: 4px;
+            font-size: 16px;
+            cursor: pointer;
+        }
+
+        .vote-button:hover,
+        .calendar-button:hover,
+        .results-button:hover {
+            background-color: #00d9a5;
+        }
+
+        .disabled-button {
+            background-color: #444;
+            color: #999;
+            cursor: not-allowed;
+        }
+
+        .disabled-button:hover {
+            background-color: #444;
+        }
+
+        footer {
+            padding: 20px;
+            background-color: #000000;
+            color: #888888;
+            font-size: 14px;
+            width: 100%;
+            text-align: center;
+            position: fixed;
+            bottom: 0;
+        }
+
+        footer a {
+            color: #00ffbf;
+            text-decoration: none;
+        }
+
+        .highlight {
+            color: #ff004d;
+            font-weight: bold;
+        }
+
+        .tooltip {
+            position: relative;
+            display: inline-block;
+        }
+
+        .tooltip .tooltiptext {
+            visibility: hidden;
+            width: 120px;
+            background-color: #000;
+            color: #fff;
+            text-align: center;
+            border-radius: 4px;
+            padding: 5px 0;
+            position: absolute;
+            z-index: 1;
+            bottom: 125%;
+            left: 50%;
+            margin-left: -60px;
+            opacity: 0;
+            transition: opacity 0.3s;
+        }
+
+        .tooltip:hover .tooltiptext {
+            visibility: visible;
+            opacity: 1;
+        }
+
+        .card-label {
+            background-color: #00d9a5;
+            color: #fff;
+            border-radius: 6px;
+            padding: 6px 10px;
+            font-size: 14px;
+            margin-right: 4px;
+            position: relative;
+            bottom: 4px;
+            text-transform: uppercase;
+        }
+
+        .card-icon svg {
+            max-width: 20px;
+            position: relative;
+            top: 3px;
+        }
+
+        .card-meta {
+            display: flex;
+            max-width: 70%;
+            margin: auto;
+            left: 0;
+            right: 0;
+        }
+
+        .card-meta p {
+            display: inline-block;
+            flex: 1;
+        }
+
+        #faq {
+            margin-bottom: 200px;
+        }
+    </style>
+</head>
+
+<body>
+
+    <header>
+        <span class="brand-name">𝕍𝕆𝕏𝕍𝕆𝕋𝔼𝕊</span>
+        <nav>
+            <ul>
+                <li><a href="#">Home</a></li>
+                <li><a href="#polls">Polls</a></li>
+                <li><a href="#faq">FAQ</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <div class="content-block" id="intro">
+        <h1>It's Time for a Major Democracy Reform</h1>
+        <p>The future of democracy lies in the hands of the people. 𝕍𝕆𝕏𝕍𝕆𝕋𝔼𝕊 empowers
+            everyone to shape our world through direct referenda. No red tape. No more bureaucracy. It's time to let the
+            people decide.</p>
+        <div class="button-block">
+            <a href="#faq"><button>Learn more</button></a>
+        </div>
+    </div>
+
+    <div class="content-block" id="polls">
+        <h1>Upcoming 𝕍𝕆𝕏𝕍𝕆𝕋𝔼𝕊 Polls</h1>
+        <div class="content-card">
+            <h2 class="card-title"><span class="card-label">Trial</span> Should mainland Europe become a US state?</h2>
+            <div class="card-meta">
+                <p class="card-date"><span class="card-date-icon card-icon">
+                        <svg data-slot="icon" fill="none" stroke-width="1.5" stroke="currentColor" viewBox="0 0 24 24"
+                            xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+                            <path stroke-linecap="round" stroke-linejoin="round"
+                                d="M6.75 3v2.25M17.25 3v2.25M3 18.75V7.5a2.25 2.25 0 0 1 2.25-2.25h13.5A2.25 2.25 0 0 1 21 7.5v11.25m-18 0A2.25 2.25 0 0 0 5.25 21h13.5A2.25 2.25 0 0 0 21 18.75m-18 0v-7.5A2.25 2.25 0 0 1 5.25 9h13.5A2.25 2.25 0 0 1 21 11.25v7.5m-9-6h.008v.008H12v-.008ZM12 15h.008v.008H12V15Zm0 2.25h.008v.008H12v-.008ZM9.75 15h.008v.008H9.75V15Zm0 2.25h.008v.008H9.75v-.008ZM7.5 15h.008v.008H7.5V15Zm0 2.25h.008v.008H7.5v-.008Zm6.75-4.5h.008v.008h-.008v-.008Zm0 2.25h.008v.008h-.008V15Zm0 2.25h.008v.008h-.008v-.008Zm2.25-4.5h.008v.008H16.5v-.008Zm0 2.25h.008v.008H16.5V15Z">
+                            </path>
+                        </svg>
+                    </span> 2 - 5 Mar 2025</p>
+                <p class="card-audience">
+                    <span class="card-audience-icon card-icon">
+                        <svg data-slot="icon" fill="none" stroke-width="1.5" stroke="currentColor" viewBox="0 0 24 24"
+                            xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+                            <path stroke-linecap="round" stroke-linejoin="round"
+                                d="M18 18.72a9.094 9.094 0 0 0 3.741-.479 3 3 0 0 0-4.682-2.72m.94 3.198.001.031c0 .225-.012.447-.037.666A11.944 11.944 0 0 1 12 21c-2.17 0-4.207-.576-5.963-1.584A6.062 6.062 0 0 1 6 18.719m12 0a5.971 5.971 0 0 0-.941-3.197m0 0A5.995 5.995 0 0 0 12 12.75a5.995 5.995 0 0 0-5.058 2.772m0 0a3 3 0 0 0-4.681 2.72 8.986 8.986 0 0 0 3.74.477m.94-3.197a5.971 5.971 0 0 0-.94 3.197M15 6.75a3 3 0 1 1-6 0 3 3 0 0 1 6 0Zm6 3a2.25 2.25 0 1 1-4.5 0 2.25 2.25 0 0 1 4.5 0Zm-13.5 0a2.25 2.25 0 1 1-4.5 0 2.25 2.25 0 0 1 4.5 0Z">
+                            </path>
+                        </svg>
+                    </span> 90,000
+                </p>
+                <p class="card-audience">
+                    <span class="card-audience-icon card-icon">
+                        <svg data-slot="icon" fill="none" stroke-width="1.5" stroke="currentColor" viewBox="0 0 24 24"
+                            xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+                            <path stroke-linecap="round" stroke-linejoin="round"
+                                d="M15 10.5a3 3 0 1 1-6 0 3 3 0 0 1 6 0Z">
+                            </path>
+                            <path stroke-linecap="round" stroke-linejoin="round"
+                                d="M19.5 10.5c0 7.142-7.5 11.25-7.5 11.25S4.5 17.642 4.5 10.5a7.5 7.5 0 1 1 15 0Z">
+                            </path>
+                        </svg>
+                    </span> Aalst, Belgium
+                </p>
+            </div>
+            <p class="card-description">
+                Near the EU headquarters in Brussels, the inhabitants of Aalst are well-known for championing free
+                speech. During this first trial run, we
+                aim to engage at least 80% of the population to cast their vote through the independent free-speech
+                platform 𝕏. This initiative is not affiliated, organised or supported by the local government.
+            </p>
+            <div class="card-buttons">
+                <button class="vote-button disabled-button" disabled>Vote Now</button>
+                <button class="results-button disabled-button" disabled>Results</button>
+            </div>
+        </div>
+
+        <div class="content-card">
+            <h2 class="card-title">Should Greenland become a US state?</h2>
+            <div class="card-meta">
+                <p class="card-date"><span class="card-date-icon card-icon">
+                        <svg data-slot="icon" fill="none" stroke-width="1.5" stroke="currentColor" viewBox="0 0 24 24"
+                            xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+                            <path stroke-linecap="round" stroke-linejoin="round"
+                                d="M6.75 3v2.25M17.25 3v2.25M3 18.75V7.5a2.25 2.25 0 0 1 2.25-2.25h13.5A2.25 2.25 0 0 1 21 7.5v11.25m-18 0A2.25 2.25 0 0 0 5.25 21h13.5A2.25 2.25 0 0 0 21 18.75m-18 0v-7.5A2.25 2.25 0 0 1 5.25 9h13.5A2.25 2.25 0 0 1 21 11.25v7.5m-9-6h.008v.008H12v-.008ZM12 15h.008v.008H12V15Zm0 2.25h.008v.008H12v-.008ZM9.75 15h.008v.008H9.75V15Zm0 2.25h.008v.008H9.75v-.008ZM7.5 15h.008v.008H7.5V15Zm0 2.25h.008v.008H7.5v-.008Zm6.75-4.5h.008v.008h-.008v-.008Zm0 2.25h.008v.008h-.008V15Zm0 2.25h.008v.008h-.008v-.008Zm2.25-4.5h.008v.008H16.5v-.008Zm0 2.25h.008v.008H16.5V15Z">
+                            </path>
+                        </svg>
+                    </span> June 2 - 5, 2025</p>
+                <p class="card-audience">
+                    <span class="card-audience-icon card-icon">
+                        <svg data-slot="icon" fill="none" stroke-width="1.5" stroke="currentColor" viewBox="0 0 24 24"
+                            xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+                            <path stroke-linecap="round" stroke-linejoin="round"
+                                d="M18 18.72a9.094 9.094 0 0 0 3.741-.479 3 3 0 0 0-4.682-2.72m.94 3.198.001.031c0 .225-.012.447-.037.666A11.944 11.944 0 0 1 12 21c-2.17 0-4.207-.576-5.963-1.584A6.062 6.062 0 0 1 6 18.719m12 0a5.971 5.971 0 0 0-.941-3.197m0 0A5.995 5.995 0 0 0 12 12.75a5.995 5.995 0 0 0-5.058 2.772m0 0a3 3 0 0 0-4.681 2.72 8.986 8.986 0 0 0 3.74.477m.94-3.197a5.971 5.971 0 0 0-.94 3.197M15 6.75a3 3 0 1 1-6 0 3 3 0 0 1 6 0Zm6 3a2.25 2.25 0 1 1-4.5 0 2.25 2.25 0 0 1 4.5 0Zm-13.5 0a2.25 2.25 0 1 1-4.5 0 2.25 2.25 0 0 1 4.5 0Z">
+                            </path>
+                        </svg>
+                    </span> 57,000
+                </p>
+                <p class="card-audience">
+                    <span class="card-audience-icon card-icon">
+                        <svg data-slot="icon" fill="none" stroke-width="1.5" stroke="currentColor" viewBox="0 0 24 24"
+                            xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+                            <path stroke-linecap="round" stroke-linejoin="round"
+                                d="M15 10.5a3 3 0 1 1-6 0 3 3 0 0 1 6 0Z">
+                            </path>
+                            <path stroke-linecap="round" stroke-linejoin="round"
+                                d="M19.5 10.5c0 7.142-7.5 11.25-7.5 11.25S4.5 17.642 4.5 10.5a7.5 7.5 0 1 1 15 0Z">
+                            </path>
+                        </svg>
+                    </span> Greenland
+                </p>
+            </div>
+            <p class="card-description">
+                If the trial run goes smoothly, all inhabitants of Greenland will be able to cast their vote through
+                independent free-speech platform 𝕏.
+            </p>
+            <div class="card-buttons">
+                <button class="vote-button disabled-button" disabled>Vote Now</button>
+                <button class="results-button disabled-button" disabled>Results</button>
+            </div>
+        </div>
+
+        <div class="content-card">
+            <h2 class="card-title">Should Canada become a US state?</h2>
+            <div class="card-meta">
+                <p class="card-date"><span class="card-date-icon card-icon">
+                        <svg data-slot="icon" fill="none" stroke-width="1.5" stroke="currentColor" viewBox="0 0 24 24"
+                            xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+                            <path stroke-linecap="round" stroke-linejoin="round"
+                                d="M6.75 3v2.25M17.25 3v2.25M3 18.75V7.5a2.25 2.25 0 0 1 2.25-2.25h13.5A2.25 2.25 0 0 1 21 7.5v11.25m-18 0A2.25 2.25 0 0 0 5.25 21h13.5A2.25 2.25 0 0 0 21 18.75m-18 0v-7.5A2.25 2.25 0 0 1 5.25 9h13.5A2.25 2.25 0 0 1 21 11.25v7.5m-9-6h.008v.008H12v-.008ZM12 15h.008v.008H12V15Zm0 2.25h.008v.008H12v-.008ZM9.75 15h.008v.008H9.75V15Zm0 2.25h.008v.008H9.75v-.008ZM7.5 15h.008v.008H7.5V15Zm0 2.25h.008v.008H7.5v-.008Zm6.75-4.5h.008v.008h-.008v-.008Zm0 2.25h.008v.008h-.008V15Zm0 2.25h.008v.008h-.008v-.008Zm2.25-4.5h.008v.008H16.5v-.008Zm0 2.25h.008v.008H16.5V15Z">
+                            </path>
+                        </svg>
+                    </span> TBD 2026</p>
+                <p class="card-audience">
+                    <span class="card-audience-icon card-icon">
+                        <svg data-slot="icon" fill="none" stroke-width="1.5" stroke="currentColor" viewBox="0 0 24 24"
+                            xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+                            <path stroke-linecap="round" stroke-linejoin="round"
+                                d="M18 18.72a9.094 9.094 0 0 0 3.741-.479 3 3 0 0 0-4.682-2.72m.94 3.198.001.031c0 .225-.012.447-.037.666A11.944 11.944 0 0 1 12 21c-2.17 0-4.207-.576-5.963-1.584A6.062 6.062 0 0 1 6 18.719m12 0a5.971 5.971 0 0 0-.941-3.197m0 0A5.995 5.995 0 0 0 12 12.75a5.995 5.995 0 0 0-5.058 2.772m0 0a3 3 0 0 0-4.681 2.72 8.986 8.986 0 0 0 3.74.477m.94-3.197a5.971 5.971 0 0 0-.94 3.197M15 6.75a3 3 0 1 1-6 0 3 3 0 0 1 6 0Zm6 3a2.25 2.25 0 1 1-4.5 0 2.25 2.25 0 0 1 4.5 0Zm-13.5 0a2.25 2.25 0 1 1-4.5 0 2.25 2.25 0 0 1 4.5 0Z">
+                            </path>
+                        </svg>
+                    </span> 40M
+                </p>
+                <p class="card-audience">
+                    <span class="card-audience-icon card-icon">
+                        <svg data-slot="icon" fill="none" stroke-width="1.5" stroke="currentColor" viewBox="0 0 24 24"
+                            xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+                            <path stroke-linecap="round" stroke-linejoin="round"
+                                d="M15 10.5a3 3 0 1 1-6 0 3 3 0 0 1 6 0Z">
+                            </path>
+                            <path stroke-linecap="round" stroke-linejoin="round"
+                                d="M19.5 10.5c0 7.142-7.5 11.25-7.5 11.25S4.5 17.642 4.5 10.5a7.5 7.5 0 1 1 15 0Z">
+                            </path>
+                        </svg>
+                    </span> Canada
+                </p>
+            </div>
+            <p class="card-description">
+                Voting requires polls to be restricted to verified 𝕏 users in the polling locations. Dates will be
+                announced later.
+            </p>
+            <div class="card-buttons">
+                <button class="vote-button disabled-button" disabled>Vote Now</button>
+                <button class="results-button disabled-button" disabled>Results</button>
+            </div>
+        </div>
+
+
+        <div class="content-card">
+            <h2 class="card-title">Should Great-Britain become a US state?</h2>
+            <div class="card-meta">
+                <p class="card-date"><span class="card-date-icon card-icon">
+                        <svg data-slot="icon" fill="none" stroke-width="1.5" stroke="currentColor" viewBox="0 0 24 24"
+                            xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+                            <path stroke-linecap="round" stroke-linejoin="round"
+                                d="M6.75 3v2.25M17.25 3v2.25M3 18.75V7.5a2.25 2.25 0 0 1 2.25-2.25h13.5A2.25 2.25 0 0 1 21 7.5v11.25m-18 0A2.25 2.25 0 0 0 5.25 21h13.5A2.25 2.25 0 0 0 21 18.75m-18 0v-7.5A2.25 2.25 0 0 1 5.25 9h13.5A2.25 2.25 0 0 1 21 11.25v7.5m-9-6h.008v.008H12v-.008ZM12 15h.008v.008H12V15Zm0 2.25h.008v.008H12v-.008ZM9.75 15h.008v.008H9.75V15Zm0 2.25h.008v.008H9.75v-.008ZM7.5 15h.008v.008H7.5V15Zm0 2.25h.008v.008H7.5v-.008Zm6.75-4.5h.008v.008h-.008v-.008Zm0 2.25h.008v.008h-.008V15Zm0 2.25h.008v.008h-.008v-.008Zm2.25-4.5h.008v.008H16.5v-.008Zm0 2.25h.008v.008H16.5V15Z">
+                            </path>
+                        </svg>
+                    </span> TBD 2026</p>
+                <p class="card-audience">
+                    <span class="card-audience-icon card-icon">
+                        <svg data-slot="icon" fill="none" stroke-width="1.5" stroke="currentColor" viewBox="0 0 24 24"
+                            xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+                            <path stroke-linecap="round" stroke-linejoin="round"
+                                d="M18 18.72a9.094 9.094 0 0 0 3.741-.479 3 3 0 0 0-4.682-2.72m.94 3.198.001.031c0 .225-.012.447-.037.666A11.944 11.944 0 0 1 12 21c-2.17 0-4.207-.576-5.963-1.584A6.062 6.062 0 0 1 6 18.719m12 0a5.971 5.971 0 0 0-.941-3.197m0 0A5.995 5.995 0 0 0 12 12.75a5.995 5.995 0 0 0-5.058 2.772m0 0a3 3 0 0 0-4.681 2.72 8.986 8.986 0 0 0 3.74.477m.94-3.197a5.971 5.971 0 0 0-.94 3.197M15 6.75a3 3 0 1 1-6 0 3 3 0 0 1 6 0Zm6 3a2.25 2.25 0 1 1-4.5 0 2.25 2.25 0 0 1 4.5 0Zm-13.5 0a2.25 2.25 0 1 1-4.5 0 2.25 2.25 0 0 1 4.5 0Z">
+                            </path>
+                        </svg>
+                    </span> 67M
+                </p>
+                <p class="card-audience">
+                    <span class="card-audience-icon card-icon">
+                        <svg data-slot="icon" fill="none" stroke-width="1.5" stroke="currentColor" viewBox="0 0 24 24"
+                            xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+                            <path stroke-linecap="round" stroke-linejoin="round"
+                                d="M15 10.5a3 3 0 1 1-6 0 3 3 0 0 1 6 0Z">
+                            </path>
+                            <path stroke-linecap="round" stroke-linejoin="round"
+                                d="M19.5 10.5c0 7.142-7.5 11.25-7.5 11.25S4.5 17.642 4.5 10.5a7.5 7.5 0 1 1 15 0Z">
+                            </path>
+                        </svg>
+                    </span> Great-Britain
+                </p>
+            </div>
+            <p class="card-description">
+                Voting requires polls to be restricted to verified 𝕏 users in the polling locations. Dates will be
+                announced later.
+            </p>
+            <div class="card-buttons">
+                <button class="vote-button disabled-button" disabled>Vote Now</button>
+                <button class="results-button disabled-button" disabled>Results</button>
+            </div>
+        </div>
+    </div>
+
+    <div class="content-block" id="faq">
+        <h1>Frequently asked questions (FAQ)</h1>
+        <div class="faq-block">
+            <h2 class="faq-question">How does it work?</h2>
+            <p class="faq-answer">
+                During the trial run, the test audience will receive a unique link to a form that grants their 𝕏
+                account access to a private 𝕏 community poll.<br />
+                Once the trial period is complete and the votes have been cast, the 𝕏 community and the poll results
+                will be made public.
+            </p>
+        </div>
+        <div class="faq-block">
+            <h2 class="faq-question">How does it scale?</h2>
+            <p class="faq-answer">
+                We have the capacity to distribute up to 100,000 unique ballot codes to the voting audience for any
+                given poll.<br />
+                For larger polls, we are requesting that 𝕏 enable restricted polls exclusively for verified 𝕏 users in
+                designated polling areas.<br />
+                To safeguard the integrity of the vote and maximize participation, we are asking 𝕏 to grant all voters
+                one free month of 𝕏 Premium to cast their vote.
+            </p>
+        </div>
+        <div class="faq-block">
+            <h2 class="faq-question">Who is behind this initiative?</h2>
+            <p class="faq-answer">
+                We are a diverse group of individuals representing various ages, genders, religious beliefs, and
+                political viewpoints.<br />Our shared mission is to restore public trust in democratic processes.
+                This initiative is privately funded and operates as an independent, non-profit organization.
+            </p>
+        </div>
+        <div class="faq-block">
+            <h2 class="faq-question">Why not use legacy poll portals, such as the European Citizens' Initiative
+                Portal?</h2>
+            <p class="faq-answer">
+                Because government-controlled platforms can’t be trusted to ensure transparency and impartiality.
+            </p>
+        </div>
+        <div class="faq-block">
+            <h2 class="faq-question">I have an idea or a question, how can I contact you?</h2>
+            <p class="faq-answer">
+                Please reach out to <a href="mailto:admin@voxvotes.org">admin@voxvotes.org</a>
+            </p>
+        </div>
+    </div>
+    <footer>
+        This website is not affiliated with 𝕏 or its brand. Powered by the people.
+    </footer>
+    <!-- cache id: 0c536cfa30b743f21f0b2594d8fcf50e9bf42a421d20685b5b5d534af894eb3a -->
+</body>
+
+</html>
